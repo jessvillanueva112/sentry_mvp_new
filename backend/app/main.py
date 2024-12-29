@@ -1,30 +1,18 @@
-from flask import Blueprint, jsonify, request
+from flask import Flask, request, jsonify
 
-main = Blueprint('main', __name__)
+app = Flask(__name__)
 
-@main.route('/api/students', methods=['GET', 'POST'])
-def manage_students():
-    if request.method == 'GET':
-        # Logic to retrieve students
-        return jsonify({"students": []})
-    elif request.method == 'POST':
-        # Logic to add a new student
-        return jsonify({"message": "Student added"})
+@app.route('/api/assess', methods=['POST'])
+def assess_risk():
+    data = request.json
+    student_id = data.get('studentId')
+    risk_factor = data.get('riskFactor')
+    
+    # Example logic to calculate risk score
+    risk_score = "Medium"  # Replace with actual logic
+    risk_factors = [10, 20, 30, 40]  # Replace with actual data
 
-@main.route('/api/riskassessment', methods=['GET', 'POST'])
-def manage_riskassessment():
-    if request.method == 'GET':
-        # Logic to retrieve risk assessments
-        return jsonify({"riskassessments": []})
-    elif request.method == 'POST':
-        # Logic to add a new risk assessment
-        return jsonify({"message": "Risk assessment added"})
+    return jsonify({'riskScore': risk_score, 'riskFactors': risk_factors})
 
-@main.route('/api/supportplan', methods=['GET', 'POST'])
-def manage_supportplan():
-    if request.method == 'GET':
-        # Logic to retrieve support plans
-        return jsonify({"supportplans": []})
-    elif request.method == 'POST':
-        # Logic to add a new support plan
-        return jsonify({"message": "Support plan added"}) 
+if __name__ == '__main__':
+    app.run(debug=True) 

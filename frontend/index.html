@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Risk Assessment</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Risk Assessment</h1>
+        <div class="assessment">
+            <div class="new-assessment">
+                <h2>New Assessment</h2>
+                <label for="student-id">Student ID</label>
+                <input type="text" id="student-id" value="132086357">
+                <label for="risk-factors">Risk Factors</label>
+                <select id="risk-factors">
+                    <option>Choose an option...</option>
+                    <option>Behavioral Issues</option>
+                    <option>Attendance Problems</option>
+                    <option>Academic Struggles</option>
+                    <option>Social Isolation</option>
+                </select>
+                <button id="start-assessment">Start Assessment</button>
+            </div>
+            <div class="assessment-results">
+                <h2>Assessment Results</h2>
+                <p>Risk Score: <span id="risk-score">Medium</span></p>
+                <canvas id="risk-chart"></canvas>
+                <button id="generate-support-plan">Generate Support Plan</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
