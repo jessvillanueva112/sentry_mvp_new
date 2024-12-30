@@ -3,36 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Risk Assessment Dashboard</title>
     <link rel="stylesheet" href="styles.css">
-    <title>Risk Assessment</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>Risk Assessment</h1>
-        <div class="assessment">
-            <div class="new-assessment">
+        <h1>Student Risk Assessment Dashboard</h1>
+        
+        <div class="dashboard-container">
+            <div class="assessment-form">
                 <h2>New Assessment</h2>
-                <label for="student-id">Student ID</label>
-                <input type="text" id="student-id" value="132086357">
-                <label for="risk-factors">Risk Factors</label>
-                <select id="risk-factors">
-                    <option>Choose an option...</option>
-                    <option>Behavioral Issues</option>
-                    <option>Attendance Problems</option>
-                    <option>Academic Struggles</option>
-                    <option>Social Isolation</option>
-                </select>
-                <button id="start-assessment">Start Assessment</button>
+                <div class="form-group">
+                    <label for="student-id">Student ID</label>
+                    <div class="search-container">
+                        <input type="text" id="student-id" class="form-control" placeholder="Enter student ID">
+                        <button id="fetch-student" class="btn btn-secondary">Fetch Info</button>
+                    </div>
+                </div>
+
+                <div id="student-info" class="student-info-panel hidden">
+                    <h3>Student Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Name:</span>
+                            <span id="student-name">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Grade:</span>
+                            <span id="student-grade">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Last Assessment:</span>
+                            <span id="last-assessment-date">-</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="risk-factors">Risk Factors</label>
+                    <select id="risk-factors" multiple class="form-control">
+                        <optgroup label="Academic">
+                            <option value="grades_declining">Declining Grades</option>
+                            <option value="assignment_completion">Low Assignment Completion</option>
+                            <option value="academic_engagement">Low Academic Engagement</option>
+                        </optgroup>
+                        <optgroup label="Attendance">
+                            <option value="attendance_poor">Poor Attendance</option>
+                            <option value="tardiness">Frequent Tardiness</option>
+                            <option value="class_skipping">Class Skipping</option>
+                        </optgroup>
+                        <optgroup label="Behavioral">
+                            <option value="disruptive_behavior">Disruptive Behavior</option>
+                            <option value="disciplinary_incidents">Disciplinary Incidents</option>
+                            <option value="peer_conflicts">Peer Conflicts</option>
+                        </optgroup>
+                        <optgroup label="Social-Emotional">
+                            <option value="social_isolation">Social Isolation</option>
+                            <option value="emotional_distress">Emotional Distress</option>
+                            <option value="motivation_loss">Loss of Motivation</option>
+                        </optgroup>
+                    </select>
+                </div>
+                
+                <button id="start-assessment" class="btn btn-primary">Assess Risk</button>
+                <button id="clear-data" class="btn btn-danger">Clear Data</button>
+                
+                <div class="risk-score">
+                    Risk Level: <span id="risk-score">N/A</span>
+                </div>
             </div>
-            <div class="assessment-results">
-                <h2>Assessment Results</h2>
-                <p>Risk Score: <span id="risk-score">Medium</span></p>
-                <canvas id="risk-chart"></canvas>
-                <button id="generate-support-plan">Generate Support Plan</button>
+            
+            <div class="statistics-panel">
+                <h2>Risk Assessment Details</h2>
+                <div class="chart-container">
+                    <canvas id="risk-chart"></canvas>
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h4>Academic Performance</h4>
+                        <div class="metric-value" id="academic-score">-</div>
+                        <div class="metric-gauge">
+                            <div class="gauge-fill" id="academic-gauge"></div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Attendance Rate</h4>
+                        <div class="metric-value" id="attendance-score">-</div>
+                        <div class="metric-gauge">
+                            <div class="gauge-fill" id="attendance-gauge"></div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Behavioral Score</h4>
+                        <div class="metric-value" id="behavioral-score">-</div>
+                        <div class="metric-gauge">
+                            <div class="gauge-fill" id="behavioral-gauge"></div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <h4>Social-Emotional</h4>
+                        <div class="metric-value" id="social-score">-</div>
+                        <div class="metric-gauge">
+                            <div class="gauge-fill" id="social-gauge"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Current Risk Factors</h3>
+                <div class="risk-factors"></div>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <script src="script.js"></script>
 </body>
 </html> 

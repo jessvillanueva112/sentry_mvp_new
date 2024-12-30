@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Risk Assessment Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Student Risk Assessment Dashboard</h1>
+        </header>
+
+        <div class="search-section">
+            <div class="input-group">
+                <input type="text" id="studentId" class="form-control" placeholder="Enter Student ID">
+            </div>
+            <button id="generateStudent" class="btn btn-success">Generate Random Student</button>
+            <button id="fetchInfo" class="btn btn-primary">Fetch Info</button>
+            <button id="assessRisk" class="btn btn-primary">Assess Risk</button>
+            <button id="clearData" class="btn btn-secondary">Clear Data</button>
+        </div>
+
+        <div class="student-info hidden" id="studentInfo">
+            <h3>Student Information</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="label">Name:</span>
+                    <span id="studentName">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Grade:</span>
+                    <span id="studentGrade">-</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="chart-section">
+                <canvas id="riskChart"></canvas>
+            </div>
+
+            <div class="risk-indicators">
+                <div class="indicator-card">
+                    <div id="academicIndicator" class="indicator-shape circle"></div>
+                    <div id="academicValue" class="metric-value">-</div>
+                    <div class="metric-label">Academic Performance</div>
+                    <div class="metric-gauge">
+                        <div class="gauge-fill" id="academicGauge"></div>
+                    </div>
+                </div>
+                <div class="indicator-card">
+                    <div id="attendanceIndicator" class="indicator-shape triangle"></div>
+                    <div id="attendanceValue" class="metric-value">-</div>
+                    <div class="metric-label">Attendance Rate</div>
+                    <div class="metric-gauge">
+                        <div class="gauge-fill" id="attendanceGauge"></div>
+                    </div>
+                </div>
+                <div class="indicator-card">
+                    <div id="behavioralIndicator" class="indicator-shape square"></div>
+                    <div id="behavioralValue" class="metric-value">-</div>
+                    <div class="metric-label">Behavioral Incidents</div>
+                    <div class="metric-gauge">
+                        <div class="gauge-fill" id="behavioralGauge"></div>
+                    </div>
+                </div>
+                <div class="indicator-card">
+                    <div id="socialEmotionalIndicator" class="indicator-shape circle"></div>
+                    <div id="socialEmotionalValue" class="metric-value">-</div>
+                    <div class="metric-label">Social-Emotional Score</div>
+                    <div class="metric-gauge">
+                        <div class="gauge-fill" id="socialEmotionalGauge"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="risk-assessment">
+            <div class="risk-level">
+                Overall Risk Level: <span id="riskLevel">N/A</span>
+            </div>
+            
+            <h3>Risk Factors</h3>
+            <div class="form-checks">
+                <!-- Academic Risk Factors -->
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" value="low_grades">
+                    <label class="form-check-label">Low Grades</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" value="incomplete_assignments">
+                    <label class="form-check-label">Incomplete Assignments</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" value="low_engagement">
+                    <label class="form-check-label">Low Engagement</label>
+                </div>
+
+                <!-- Attendance Risk Factors -->
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" value="frequent_absences">
+                    <label class="form-check-label">Frequent Absences</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" value="chronic_tardiness">
+                    <label class="form-check-label">Chronic Tardiness</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" value="class_skipping">
+                    <label class="form-check-label">Class Skipping</label>
+                </div>
+
+                <!-- Behavioral Risk Factors -->
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" value="disruptive_behavior">
+                    <label class="form-check-label">Disruptive Behavior</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" value="social_isolation">
+                    <label class="form-check-label">Social Isolation</label>
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" value="aggressive_behavior">
+                    <label class="form-check-label">Aggressive Behavior</label>
+                </div>
+            </div>
+
+            <h3>Current Risk Factors</h3>
+            <div id="currentRiskFactors" class="risk-factors">
+                <!-- Risk factors will be dynamically populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 
