@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Document loaded');
     const studentIdInput = document.getElementById('studentId');
     const generateStudentBtn = document.getElementById('generateStudent');
     const fetchInfoBtn = document.getElementById('fetchInfo');
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize chart
     function initializeChart() {
+        console.log('Initializing chart');
         const ctx = document.getElementById('riskChart').getContext('2d');
         riskChart = new Chart(ctx, {
             type: 'doughnut',
@@ -49,9 +51,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 datasets: [{
                     data: [0, 0, 0],
                     backgroundColor: [
-                        'var(--risk-green)',
-                        'var(--risk-yellow)',
-                        'var(--risk-red)'
+                        '#4CAF50', // Green
+                        '#FFC107', // Yellow
+                        '#F44336'  // Red
                     ],
                     borderWidth: 0
                 }]
@@ -76,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize chart on load
     initializeChart();
+    console.log('Chart initialized');
 
     function generateStudent() {
         fetch('/api/generate-student')
@@ -237,6 +240,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         riskChart.data.datasets[0].data = riskScores;
+        riskChart.data.datasets[0].backgroundColor = [
+            '#4CAF50', // Green
+            '#FFC107', // Yellow
+            '#F44336'  // Red
+        ];
         riskChart.update();
     }
 
@@ -323,6 +331,7 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'circle': return indicators.academic;
             case 'triangle': return indicators.attendance;
             case 'square': return indicators.behavioral;
+            case 'star': return indicators.socialEmotional;
             default: return null;
         }
     }
@@ -346,4 +355,27 @@ document.addEventListener('DOMContentLoaded', function() {
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
             .join(' ');
     }
+
+    function updateDonutChart(riskLevel) {
+        const chartElement = document.getElementById('riskChart');
+        let color;
+        switch (riskLevel) {
+            case 'Low Risk':
+                color = 'green';
+                break;
+            case 'Medium Risk':
+                color = 'yellow';
+                break;
+            case 'High Risk':
+                color = 'red';
+                break;
+            default:
+                color = 'gray';
+        }
+        chartElement.style.borderColor = color;
+        chartElement.style.borderWidth = '10px';
+    }
+
+    // Example usage
+    updateDonutChart('Low Risk');
 }); 
